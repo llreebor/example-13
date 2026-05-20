@@ -106,12 +106,13 @@ document.addEventListener("DOMContentLoaded", () => {
 		// Optional parameters
 		loop: true,
 		speed: 3000,
+		spaceBetween: 40,
 		autoplay: {
 			delay: 0,
 		},
 		breakpoints: {
 			320: {
-				slidesPerView: 3,
+				slidesPerView: 2.5,
 			},
 
 			640: {
