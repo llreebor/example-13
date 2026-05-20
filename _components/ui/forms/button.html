@@ -1,0 +1,19 @@
+<!-- [START] HTML Component -->
+<button class="btn btn-primary">
+	<img src="./images/icons/button-icon.svg" alt="button icon" />
+	Button
+	<img src="./images/icons/button-icon.svg" alt="button icon" />
+</button>
+<!-- [END] HTML Component -->
+
+<!-- [START] CSS Component -->
+<style>
+	/* Button */
+	.btn {
+		@apply inline-flex items-center gap-3 rounded-lg border border-transparent px-3 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-85;
+	}
+	.btn-primary {
+		@apply border-black/10 not-disabled:hover:bg-black/10 not-disabled:active:bg-black/20;
+	}
+</style>
+<!-- [END] CSS Component -->

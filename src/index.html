@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" class="h-full">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>kintone</title>
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="./css/output.css" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Swiper Slider -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"
+		/>
+	</head>
+	<body>
+		<div class="wrapper flex min-h-full flex-col">
+			<!-- Header  -->
+			<header class="border-b-primary border-b py-4 md:py-4.5 lg:py-5">
+				<div class="container">
+					<div class="flex items-center justify-between">
+						<!-- Logo -->
+						<a href="#"><img src="./images/global/logo.svg" alt="logo" /></a>
+
+						<!-- Desktop menu -->
+						<div class="hidden items-center gap-1.5 md:flex">
+							<a href="#" class="btn btn-sm btn-primary-outline">Book Demo</a>
+							<a href="#" class="btn btn-sm btn-secondary">Free Trial</a>
+						</div>
+
+						<!-- Mobile Menu -->
+						<div class="md:hidden">
+							<div
+								id="mobile-menu"
+								aria-hidden="true"
+								class="fixed top-0 left-0 z-10 h-full w-[80%] -translate-x-full transform bg-white shadow-xl transition-transform duration-300 ease-in-out [.is-open]:translate-x-0"
+							>
+								<p class="hidden">MOBILE MENU</p>
+							</div>
+
+							<!-- Overlay -->
+							<div
+								id="mobile-menu-overlay"
+								aria-hidden="true"
+								role="presentation"
+								class="pointer-events-none fixed inset-0 z-0 bg-black/80 opacity-0 transition-opacity duration-300 ease-in-out"
+							></div>
+						</div>
+
+						<!-- Burger Button -->
+						<button
+							id="burger"
+							class="group burger-btn"
+							aria-label="Toggle mobile menu"
+							aria-expanded="false"
+							aria-controls="mobile-menu"
+						>
+							<span class="burger-btn-top-line"></span>
+							<span class="burger-btn-center-line"></span>
+							<span class="burger-btn-bottom-line"></span>
+						</button>
+					</div>
+				</div>
+			</header>
+
+			<!-- Main Content -->
+			<main class="flex-auto">
+				<!-- Hero -->
+				<section class="mt-10 pt-0 lg:mt-24">
+					<div class="container">
+						<div class="grid gap-10 xl:grid-cols-2 xl:gap-24">
+							<div class="xl:pt-16.5">
+								<p class="uppercase">Kintone for project managers</p>
+								<h1 class="mt-2">
+									Project management that actually fits how your team works
+								</h1>
+								<p
+									class="mt-4 text-lg leading-[1.4] md:mt-5 lg:text-xl lg:leading-[1.4]"
+								>
+									Most tools force you into a set way of working. Kintone lets
+									you build a system that matches how your team plans, tracks,
+									and runs projects with AI to help you move faster.
+								</p>
+								<a
+									href="#"
+									class="btn btn-lg btn-primary mt-8 md:mt-10 lg:mt-14"
+								>
+									Book Demo
+								</a>
+							</div>
+							<div>
+								<video
+									autoplay
+									muted
+									class="aspect-square rounded-md object-cover"
+								>
+									<source src="./images/home/hero-animation.mp4" />
+								</video>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Trusted By -->
+				<section>
+					<p class="text-center">
+						Trusted by 42,000+ teams that need more than a basic PM tool
+					</p>
+					<div class="swiper swiper-trusted-by mt-4 md:mt-5 lg:mt-6">
+						<!-- Additional required wrapper -->
+						<div class="swiper-wrapper items-center ease-linear!">
+							<!-- Slides -->
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-1.svg"
+									alt="trusted logo"
+								/>
+							</div>
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-2.svg"
+									alt="trusted logo"
+								/>
+							</div>
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-3.svg"
+									alt="trusted logo"
+								/>
+							</div>
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-4.svg"
+									alt="trusted logo"
+								/>
+							</div>
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-5.svg"
+									alt="trusted logo"
+								/>
+							</div>
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-6.svg"
+									alt="trusted logo"
+								/>
+							</div>
+
+							<div
+								class="swiper-slide flex! w-full items-center justify-center text-center"
+							>
+								<img
+									src="./images/global/trusted-logo-8.svg"
+									alt="trusted logo"
+								/>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+
+			<!-- Footer -->
+			<footer class="flex h-40 items-center justify-center bg-slate-300">
+				FOOTER
+			</footer>
+		</div>
+
+		<!-- Libs -->
+		<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+		<!-- Custom JavaScript -->
+		<script src="./js/main.js"></script>
+	</body>
+</html>

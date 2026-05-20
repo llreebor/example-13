@@ -1,0 +1,118 @@
+<!-- [START] HTML Modal -->
+<!-- Modal -->
+<div class="relative">
+	<button
+		data-modal="modal1"
+		class="bg-primary hover:bg-primary/90 rounded px-4 py-2 text-white"
+	>
+		Open Modal 1
+	</button>
+
+	<div id="modal1" class="modal-overlay">
+		<div class="modal">
+			<h2 class="mb-4 text-xl font-bold">Modal 1 Title</h2>
+			<p class="mb-4">
+				This is the first modal window. Close it by clicking the button,
+				overlay, or pressing Esc.
+			</p>
+			<button data-modal="modal1" class="modal-close-btn">Close</button>
+		</div>
+	</div>
+</div>
+<!-- [END] HTML Modal -->
+
+<!-- [START] CSS Modal -->
+<style>
+	/* Modal */
+	.modal-overlay {
+		@apply pointer-events-none fixed inset-0 z-10 flex items-center justify-center bg-black/80 opacity-0 transition-opacity duration-400 ease-in-out;
+	}
+	.modal {
+		@apply w-full max-w-md scale-95 transform rounded-lg bg-white p-6 transition-transform duration-500 ease-in-out;
+	}
+	.modal-close-btn {
+		@apply bg-primary hover:bg-primary/90 rounded px-4 py-2 text-white;
+	}
+</style>
+<!-- [END] CSS Modal -->
+
+<!-- [START] JavaScript Modal -->
+<script>
+	// Initializes modal functionality
+	function initializeModal() {
+		const openModalButtons = document.querySelectorAll("[data-modal]")
+		const closeModalButtons = document.querySelectorAll(".modal-close-btn")
+
+		if (!openModalButtons.length || !closeModalButtons.length) return
+
+		function openModal(modalId) {
+			const modal = document.getElementById(modalId)
+			if (!modal) return // Exit if modal element is not found
+
+			// Update modal classes for visibility and interaction
+			modal.classList.remove("opacity-0", "pointer-events-none")
+			modal.classList.add("opacity-100", "pointer-events-auto")
+
+			// Update modal content scale for animation
+			const modalContent = modal.querySelector("div")
+			if (modalContent) {
+				modalContent.classList.remove("scale-95")
+				modalContent.classList.add("scale-100")
+			}
+
+			// Close modal when clicking outside the modal content
+			const handleOverlayClick = (e) => {
+				if (e.target === modal) {
+					closeModal(modalId)
+				}
+			}
+			modal.addEventListener("click", handleOverlayClick)
+
+			// Close modal on Escape key press and clean up listener
+			const handleEscapeKey = (e) => {
+				if (e.key === "Escape") {
+					closeModal(modalId)
+					document.removeEventListener("keydown", handleEscapeKey)
+				}
+			}
+			document.addEventListener("keydown", handleEscapeKey)
+		}
+
+		function closeModal(modalId) {
+			const modal = document.getElementById(modalId)
+			if (!modal) return // Exit if modal element is not found
+
+			// Update modal classes to hide and disable interaction
+			modal.classList.remove("opacity-100", "pointer-events-auto")
+			modal.classList.add("opacity-0", "pointer-events-none")
+
+			// Update modal content scale for animation
+			const modalContent = modal.querySelector("div")
+			if (modalContent) {
+				modalContent.classList.remove("scale-100")
+				modalContent.classList.add("scale-95")
+			}
+		}
+
+		// Select all buttons with data-modal attribute for opening modals
+		openModalButtons.forEach((button) => {
+			// Exclude buttons with modal-close-btn class
+			if (!button.classList.contains("modal-close-btn")) {
+				button.addEventListener("click", () => {
+					const modalId = button.getAttribute("data-modal")
+					if (modalId) openModal(modalId) // Open modal if ID is valid
+				})
+			}
+		})
+
+		// Select all buttons with modal-close-btn class for closing modals
+		closeModalButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const modalId = button.getAttribute("data-modal")
+				if (modalId) closeModal(modalId) // Close modal if ID is valid
+			})
+		})
+	}
+	initializeModal()
+</script>
+<!-- [END] JavaScript Modal -->

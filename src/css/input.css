@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("../fonts/ProximaNovaRegular.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("../fonts/ProximaNovaSemibold.ttf") format("truetype");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Proxima Nova";
+	src: url("../fonts/ProximaNovaBold.ttf") format("truetype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Variables */
+@theme {
+	/* Fonts */
+	--font-proximaNova: "Proxima Nova", sans-serif;
+
+	/* Colors */
+	--color-primary: rgba(239, 63, 36, 1);
+	--color-primary-hover: #bf321d;
+	--color-gray: rgba(112, 112, 112, 1);
+	--color-lightgray: rgba(223, 223, 223, 1);
+	--color-offwhite: rgba(242, 242, 242, 1);
+
+	--color-shamrock: rgba(63, 168, 98, 1);
+	--color-cerulean: rgba(0, 175, 236, 1);
+	--color-aloe: rgba(0, 175, 170, 1);
+	--color-sunshine: rgba(255, 186, 0, 1);
+	--color-medium-red: rgba(255, 122, 100, 1);
+
+	--color-light-red: rgba(247, 222, 218, 1);
+	--color-medium-blue: rgba(145, 193, 243, 1);
+	--color-light-blue: rgba(230, 243, 253, 1);
+	--color-light-yellow: rgba(255, 245, 204, 1);
+	--color-light-green: rgba(200, 241, 227, 1);
+
+	--color-purple: rgba(167, 84, 244, 1);
+	--color-light-purple: rgba(230, 235, 255, 1);
+	--color-blue: rgba(59, 71, 245, 1);
+	--color-light-blue: rgba(230, 246, 255, 1);
+
+	--color-error: oklch(63.7% 0.237 25.331);
+	--color-success: oklch(72.3% 0.219 149.579);
+	--color-warning: oklch(70.5% 0.213 47.604);
+
+	/* Animations */
+	--animate-fadeIn: fadeIn 0.3s linear;
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+}
+
+/* Container max-width & paddings */
+@utility container {
+	@apply mx-auto max-w-7xl px-6 md:px-10 xl:px-0;
+}
+
+/* Custom Components */
+@layer components {
+	/* Button */
+	.btn {
+		@apply inline-flex items-center gap-2 rounded-full border-[1.5px] border-transparent transition-colors disabled:cursor-not-allowed disabled:opacity-85;
+	}
+	.btn-sm {
+		@apply px-4 py-2.25 lg:py-2.75;
+	}
+	.btn-lg {
+		@apply px-4 py-2.25 leading-0 md:px-8 md:py-4 md:text-[22px];
+	}
+	.btn-primary {
+		@apply bg-primary not-disabled:hover:bg-primary-hover not-disabled:active:bg-primary-hover leading-none font-bold text-white;
+	}
+	.btn-primary-outline {
+		@apply text-primary not-disabled:hover:bg-light-red not-disabled:active:bg-light-red border-primary bg-white leading-none font-bold;
+	}
+	.btn-secondary {
+		@apply bg-black/85 leading-none font-bold text-white not-disabled:hover:bg-black not-disabled:active:bg-black;
+	}
+
+	/* Burger Button */
+	.burger-btn {
+		@apply relative z-20 ml-auto block h-3.5 w-5 md:hidden;
+	}
+	.burger-btn-top-line {
+		@apply bg-primary absolute top-0 left-0 h-0.5 w-5 rounded-full transition-transform group-[.active]:translate-y-1.5 group-[.active]:rotate-45 group-[.active]:bg-white;
+	}
+	.burger-btn-center-line {
+		@apply bg-primary absolute top-1/2 left-0 h-0.5 w-5 -translate-y-1/2 rounded-full transition-transform group-[.active]:opacity-0;
+	}
+	.burger-btn-bottom-line {
+		@apply bg-primary absolute bottom-0 left-0 h-0.5 w-5 rounded-full transition-transform group-[.active]:-translate-y-1.5 group-[.active]:-rotate-45 group-[.active]:bg-white;
+	}
+}
+
+/* Base Elements  */
+@layer base {
+	body {
+		@apply font-proximaNova relative h-full;
+	}
+	a {
+		@apply cursor-pointer transition-colors;
+	}
+	button {
+		@apply cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+	}
+	p {
+		@apply text-[15px] leading-normal text-black/75 lg:text-lg;
+	}
+	h1 {
+		@apply mt-4 text-[42px] leading-[1.15]! font-bold text-black md:text-[48px] lg:text-[60px];
+	}
+	section {
+		@apply py-18;
+	}
+}
+
+/* Utility Classes */
+@layer utilities {
+	/* Image Background */
+	.with-image-bg {
+		@apply relative z-0;
+	}
+	.image-bg {
+		@apply absolute inset-0 -z-10 h-full w-full max-w-full object-cover;
+	}
+
+	/* After underline hover animation */
+	.with-underline-animation {
+		@apply after:bg-primary relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-0 after:transition-transform hover:after:scale-100;
+	}
+
+	/* List Item */
+	.list-item {
+		@apply after:bg-primary relative pl-3 after:absolute after:top-1/2 after:left-0 after:size-1 after:-translate-y-1/2 after:rounded-full;
+	}
+}
