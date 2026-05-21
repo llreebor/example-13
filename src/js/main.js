@@ -95,14 +95,93 @@ function initializeMobileMenu() {
 		}
 	})
 }
+// Initialize accordion functionality
+function initializeAccordion() {
+	// Select the accordion container (assuming items are inside a common parent)
+	const accordion = document.querySelector(".accordion")
+	const accordionItems = document.querySelectorAll(".accordion-item")
+
+	// Exit if no accordion container or items are found
+	if (!accordion || !accordionItems.length) return
+
+	// Set initial state for all accordion items
+	accordionItems.forEach((item) => {
+		const content = item.querySelector(".accordion-content")
+		const trigger = item.querySelector(".accordion-trigger")
+
+		if (!content || !trigger) return
+
+		// Set ARIA attributes for accessibility
+		trigger.setAttribute("aria-expanded", item.classList.contains("active"))
+		content.setAttribute("aria-hidden", !item.classList.contains("active"))
+
+		// Ensure content has active class if item is active
+		if (item.classList.contains("active")) {
+			content.classList.add("active")
+		}
+	})
+
+	// Use event delegation for accordion triggers
+	accordion.addEventListener("click", (event) => {
+		const trigger = event.target.closest(".accordion-trigger")
+		if (!trigger) return // Exit if not a trigger
+
+		const parent = trigger.closest(".accordion-item")
+		if (!parent) return // Exit if no parent item
+
+		const content = parent.querySelector(".accordion-content")
+		if (!content) return
+
+		// Toggle active state
+		const isOpening = !parent.classList.contains("active")
+		parent.classList.toggle("active")
+		content.classList.toggle("active")
+
+		// Update ARIA attributes
+		trigger.setAttribute("aria-expanded", isOpening)
+		content.setAttribute("aria-hidden", !isOpening)
+
+		// Optional: Close other items if only one should be open
+		/*
+		if (isOpening) {
+			document.querySelectorAll(".accordion-item").forEach((otherItem) => {
+				if (otherItem !== parent && otherItem.classList.contains("active")) {
+					otherItem.classList.remove("active");
+					const otherContent = otherItem.querySelector(".accordion-content");
+					const otherTrigger = otherItem.querySelector(".accordion-trigger");
+					if (otherContent && otherTrigger) {
+						otherContent.classList.remove("active");
+						otherTrigger.setAttribute("aria-expanded", "false");
+						otherContent.setAttribute("aria-hidden", "true");
+					}
+				}
+			});
+		}
+		*/
+	})
+
+	// Add keyboard support for accessibility
+	accordion.addEventListener("keydown", (event) => {
+		if (event.key === "Enter" || event.key === " ") {
+			const trigger = event.target.closest(".accordion-trigger")
+			if (!trigger) return
+
+			event.preventDefault() // Prevent default scrolling for spacebar
+			trigger.click() // Simulate click to reuse logic
+		}
+	})
+}
 
 // Inits
 document.addEventListener("DOMContentLoaded", () => {
 	// Mobile Menu
 	initializeMobileMenu()
 
+	// FAQ Accordion
+	initializeAccordion()
+
 	// Trusted By Slider
-	const trustedBySwiper = new Swiper(".swiper", {
+	const trustedBySwiper = new Swiper(".swiper-trusted-by", {
 		// Optional parameters
 		loop: true,
 		speed: 3000,
@@ -123,6 +202,29 @@ document.addEventListener("DOMContentLoaded", () => {
 			},
 			1280: {
 				slidesPerView: 5.5,
+			},
+		},
+	})
+
+	// Teams
+	const teamsSwiper = new Swiper(".swiper-teams", {
+		// Optional parameters
+		loop: true,
+		spaceBetween: 24,
+
+		breakpoints: {
+			320: {
+				slidesPerView: 1.1,
+			},
+
+			640: {
+				slidesPerView: 1.9,
+			},
+			992: {
+				slidesPerView: 2,
+			},
+			1280: {
+				slidesPerView: 3,
 			},
 		},
 	})
