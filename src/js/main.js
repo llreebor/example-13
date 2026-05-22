@@ -172,6 +172,48 @@ function initializeAccordion() {
 	})
 }
 
+// Initializes tab navigation with accessibility features for a given tab container.
+// function initTabs(tabsEl) {
+// 	const triggers = tabsEl.querySelectorAll(".tabs-header .tab-trigger")
+// 	const panels = tabsEl.querySelectorAll(".tabs-content .tab-content")
+
+// 	function setActive(index) {
+// 		triggers.forEach((t, i) => {
+// 			const active = i === index
+// 			t.setAttribute("aria-selected", active)
+// 			t.setAttribute("tabindex", active ? "0" : "-1")
+// 			t.classList.toggle("active", active)
+// 		})
+// 		panels.forEach((p, i) => {
+// 			const active = i === index
+// 			p.classList.toggle("hidden", !active)
+// 			p.setAttribute("aria-hidden", !active)
+// 		})
+// 	}
+
+// 	triggers.forEach((trigger, index) => {
+// 		trigger.addEventListener("click", () => setActive(index))
+// 		trigger.addEventListener("keydown", (e) => {
+// 			if (e.key === "Enter" || e.key === " ") {
+// 				e.preventDefault()
+// 				setActive(index)
+// 			} else if (e.key === "ArrowRight") {
+// 				e.preventDefault()
+// 				const n = (index + 1) % triggers.length
+// 				setActive(n)
+// 				triggers[n].focus()
+// 			} else if (e.key === "ArrowLeft") {
+// 				e.preventDefault()
+// 				const p = (index - 1 + triggers.length) % triggers.length
+// 				setActive(p)
+// 				triggers[p].focus()
+// 			}
+// 		})
+// 	})
+
+// 	setActive(0)
+// }
+
 // Inits
 document.addEventListener("DOMContentLoaded", () => {
 	// Mobile Menu
@@ -179,6 +221,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// FAQ Accordion
 	initializeAccordion()
+
+	// Initialize tabs
+	// document.querySelectorAll(".tabs").forEach(initTabs)
 
 	// Trusted By Slider
 	const trustedBySwiper = new Swiper(".swiper-trusted-by", {
@@ -260,4 +305,132 @@ document.addEventListener("DOMContentLoaded", () => {
 			},
 		},
 	})
+
+	// Swiper Tabs 1
+	// const swiperVisibility = new Swiper(".swiper-tabs-visibility", {
+	// 	slidesPerView: 1,
+	// 	// Navigation arrows
+	// 	navigation: {
+	// 		nextEl: ".swiper-tabs-visibility-next",
+	// 		prevEl: ".swiper-tabs-visibility-prev",
+	// 	},
+	// 	loop: true,
+	// })
 })
+function initResponsiveSwiperTabs(containerEl) {
+	const triggers = containerEl.querySelectorAll(".tabs-header .tab-trigger")
+	const panels = containerEl.querySelectorAll(".tabs-content .tab-content")
+
+	// Находим стрелки локально
+	const nextEl = containerEl.querySelector(".swiper-tabs-visibility-next")
+	const prevEl = containerEl.querySelector(".swiper-tabs-visibility-prev")
+
+	if (!triggers.length || !panels.length) return
+
+	let swiperInstance = null
+	// Медиа-запрос: слайдер работает ТОЛЬКО до 768px (включительно)
+	const mediaQuery = window.matchMedia("(max-width: 768px)")
+
+	// Текущий активный индекс, который сохраняется при переходе десктоп <-> мобилка
+	let currentIndex = 0
+
+	// 1. Функция обновления классов и ARIA-атрибутов
+	function updateUI(activeIndex) {
+		currentIndex = activeIndex
+
+		triggers.forEach((t, i) => {
+			const active = i === activeIndex
+			t.setAttribute("aria-selected", active)
+			t.setAttribute("tabindex", active ? "0" : "-1")
+			t.classList.toggle("active", active)
+		})
+
+		panels.forEach((p, i) => {
+			const active = i === activeIndex
+			p.classList.toggle("hidden", !active)
+			p.setAttribute("aria-hidden", !active)
+		})
+	}
+
+	// 2. Функция управления жизненным циклом Swiper
+	function handleBreakpoint(e) {
+		if (e.matches) {
+			// Меньше или равно 768px -> Включаем Swiper, если еще не включен
+			if (!swiperInstance) {
+				swiperInstance = new Swiper(containerEl, {
+					slidesPerView: 1,
+					initialSlide: currentIndex, // стартуем с того таба, который был активен
+					navigation: { nextEl, prevEl },
+					loop: true,
+					effect: "fade",
+					fadeEffect: {
+						crossFade: true,
+					},
+					on: {
+						slideChange: function () {
+							updateUI(this.realIndex)
+						},
+					},
+				})
+			}
+		} else {
+			// Больше 768px -> Уничтожаем Swiper
+			if (swiperInstance) {
+				swiperInstance.destroy(true, true)
+				swiperInstance = null
+
+				// Swiper при destroy убирает inline-стили, но на всякий случай
+				// принудительно восстанавливаем UI для текущего индекса
+				updateUI(currentIndex)
+			}
+		}
+	}
+
+	// 3. Обработчики кликов и клавиатуры (работают всегда)
+	triggers.forEach((trigger, index) => {
+		const handleActivation = () => {
+			if (swiperInstance) {
+				// Если слайдер активен (моб), листаем его
+				swiperInstance.slideToLoop(index)
+			} else {
+				// Если мы на десктопе, просто переключаем табы напрямую
+				updateUI(index)
+			}
+		}
+
+		trigger.addEventListener("click", handleActivation)
+
+		trigger.addEventListener("keydown", (e) => {
+			if (e.key === "Enter" || e.key === " ") {
+				e.preventDefault()
+				handleActivation()
+			} else if (e.key === "ArrowRight") {
+				e.preventDefault()
+				const nextIndex = (index + 1) % triggers.length
+				if (swiperInstance) swiperInstance.slideToLoop(nextIndex)
+				else updateUI(nextIndex)
+				triggers[nextIndex].focus()
+			} else if (e.key === "ArrowLeft") {
+				e.preventDefault()
+				const prevIndex = (index - 1 + triggers.length) % triggers.length
+				if (swiperInstance) swiperInstance.slideToLoop(prevIndex)
+				else updateUI(prevIndex)
+				triggers[prevIndex].focus()
+			}
+		})
+	})
+
+	// Слушаем изменение экрана и запускаем проверку сразу при загрузке
+	mediaQuery.addEventListener("change", handleBreakpoint)
+	handleBreakpoint(mediaQuery)
+
+	// Первичная инициализация UI
+	updateUI(currentIndex)
+}
+
+// Запуск для всех блоков на странице
+document
+	.querySelectorAll(".tabs.swiper-tabs-visibility")
+	.forEach((container) => {
+		initResponsiveSwiperTabs(container)
+	})

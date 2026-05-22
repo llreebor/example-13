@@ -133,6 +133,23 @@
 	.accordion-text {
 		@apply p-6 pt-0 text-left md:p-7 md:pt-0 xl:p-8 xl:pt-0;
 	}
+
+	/* Tabs */
+	.tabs-header {
+		@apply border-b-primary border-b;
+	}
+	.tabs-trigger {
+		@apply border-b-primary flex justify-center border-b text-center;
+	}
+	.tabs-trigger-text {
+		@apply animate-fadeIn text-gray group-[.active]:text-primary group-hover:text-primary group-[.active]:border-b-primary mx-auto block max-w-fit border-b-4 border-b-transparent px-0.5 py-4 text-lg leading-none font-bold transition-colors lg:text-[22px];
+	}
+	.tabs-content {
+		@apply mt-5;
+	}
+	.tab-content {
+		@apply animate-fadeIn items-center justify-center bg-cyan-200 text-7xl;
+	}
 }
 
 /* Base Elements  */
@@ -181,5 +198,19 @@
 	/* List Item */
 	.list-item {
 		@apply after:bg-primary relative pl-3 after:absolute after:top-1/2 after:left-0 after:size-1 after:-translate-y-1/2 after:rounded-full;
+	}
+}
+@media (min-width: 769px) {
+	/* Отменяем поведение swiper-wrapper, превращая в обычную панель табов */
+	.tabs-header.swiper-wrapper {
+		display: flex !important;
+		transform: none !important;
+		width: 100% !important;
+	}
+
+	/* Отменяем сжатие или фиксированную ширину кнопок, заданную Swiper */
+	.tab-trigger.swiper-slide {
+		width: auto !important;
+		flex-shrink: 1 !important;
 	}
 }
