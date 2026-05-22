@@ -228,4 +228,36 @@ document.addEventListener("DOMContentLoaded", () => {
 			},
 		},
 	})
+
+	// Swiper Team
+	const swiperTeam = new Swiper(".swiper-team", {
+		centeredSlides: false,
+		loop: true,
+
+		navigation: {
+			nextEl: ".swiper-team-next",
+			prevEl: ".swiper-team-prev",
+		},
+
+		breakpoints: {
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 16,
+				slidesOffsetBefore: 36,
+				slidesOffsetAfter: 36,
+			},
+			769: {
+				slidesPerView: 2,
+				spaceBetween: 20,
+				slidesOffsetBefore: 64,
+				slidesOffsetAfter: 64,
+			},
+			1280: {
+				slidesPerView: 2,
+				spaceBetween: 24,
+				slidesOffsetBefore: 85,
+				slidesOffsetAfter: 85,
+			},
+		},
+	})
 })
