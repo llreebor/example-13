@@ -321,20 +321,17 @@ function initResponsiveSwiperTabs(containerEl) {
 	const triggers = containerEl.querySelectorAll(".tabs-header .tab-trigger")
 	const panels = containerEl.querySelectorAll(".tabs-content .tab-content")
 
-	// Находим стрелки локально
 	const nextEl = containerEl.querySelector(".swiper-tabs-visibility-next")
 	const prevEl = containerEl.querySelector(".swiper-tabs-visibility-prev")
 
 	if (!triggers.length || !panels.length) return
 
 	let swiperInstance = null
-	// Медиа-запрос: слайдер работает ТОЛЬКО до 768px (включительно)
-	const mediaQuery = window.matchMedia("(max-width: 768px)")
+	const maxWidth = "(max-width: 1024px)"
+	const mediaQuery = window.matchMedia(maxWidth)
 
-	// Текущий активный индекс, который сохраняется при переходе десктоп <-> мобилка
 	let currentIndex = 0
 
-	// 1. Функция обновления классов и ARIA-атрибутов
 	function updateUI(activeIndex) {
 		currentIndex = activeIndex
 
@@ -352,14 +349,12 @@ function initResponsiveSwiperTabs(containerEl) {
 		})
 	}
 
-	// 2. Функция управления жизненным циклом Swiper
 	function handleBreakpoint(e) {
 		if (e.matches) {
-			// Меньше или равно 768px -> Включаем Swiper, если еще не включен
 			if (!swiperInstance) {
 				swiperInstance = new Swiper(containerEl, {
 					slidesPerView: 1,
-					initialSlide: currentIndex, // стартуем с того таба, который был активен
+					initialSlide: currentIndex,
 					navigation: { nextEl, prevEl },
 					loop: true,
 					effect: "fade",
@@ -374,26 +369,20 @@ function initResponsiveSwiperTabs(containerEl) {
 				})
 			}
 		} else {
-			// Больше 768px -> Уничтожаем Swiper
 			if (swiperInstance) {
 				swiperInstance.destroy(true, true)
 				swiperInstance = null
 
-				// Swiper при destroy убирает inline-стили, но на всякий случай
-				// принудительно восстанавливаем UI для текущего индекса
 				updateUI(currentIndex)
 			}
 		}
 	}
 
-	// 3. Обработчики кликов и клавиатуры (работают всегда)
 	triggers.forEach((trigger, index) => {
 		const handleActivation = () => {
 			if (swiperInstance) {
-				// Если слайдер активен (моб), листаем его
 				swiperInstance.slideToLoop(index)
 			} else {
-				// Если мы на десктопе, просто переключаем табы напрямую
 				updateUI(index)
 			}
 		}
@@ -420,15 +409,12 @@ function initResponsiveSwiperTabs(containerEl) {
 		})
 	})
 
-	// Слушаем изменение экрана и запускаем проверку сразу при загрузке
 	mediaQuery.addEventListener("change", handleBreakpoint)
 	handleBreakpoint(mediaQuery)
 
-	// Первичная инициализация UI
 	updateUI(currentIndex)
 }
 
-// Запуск для всех блоков на странице
 document
 	.querySelectorAll(".tabs.swiper-tabs-visibility")
 	.forEach((container) => {

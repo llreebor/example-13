@@ -145,10 +145,10 @@
 		@apply animate-fadeIn text-gray group-[.active]:text-primary group-hover:text-primary group-[.active]:border-b-primary mx-auto block max-w-fit border-b-4 border-b-transparent px-0.5 py-4 text-lg leading-none font-bold transition-colors lg:text-[22px];
 	}
 	.tabs-content {
-		@apply mt-5;
+		@apply mt-10;
 	}
 	.tab-content {
-		@apply animate-fadeIn items-center justify-center bg-cyan-200 text-7xl;
+		@apply animate-fadeIn;
 	}
 }
 
@@ -200,7 +200,7 @@
 		@apply after:bg-primary relative pl-3 after:absolute after:top-1/2 after:left-0 after:size-1 after:-translate-y-1/2 after:rounded-full;
 	}
 }
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
 	/* Отменяем поведение swiper-wrapper, превращая в обычную панель табов */
 	.tabs-header.swiper-wrapper {
 		display: flex !important;
