@@ -2300,6 +2300,11 @@
       display: none;
     }
   }
+  .lg\:w-47\.5 {
+    @media (width >= 64rem) {
+      width: calc(var(--spacing) * 47.5);
+    }
+  }
   .lg\:max-w-\[256px\] {
     @media (width >= 64rem) {
       max-width: 256px;
@@ -2338,6 +2343,11 @@
   .lg\:items-center {
     @media (width >= 64rem) {
       align-items: center;
+    }
+  }
+  .lg\:items-start {
+    @media (width >= 64rem) {
+      align-items: flex-start;
     }
   }
   .lg\:justify-between {
