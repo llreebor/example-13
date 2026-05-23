@@ -305,17 +305,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			},
 		},
 	})
-
-	// Swiper Tabs 1
-	// const swiperVisibility = new Swiper(".swiper-tabs-visibility", {
-	// 	slidesPerView: 1,
-	// 	// Navigation arrows
-	// 	navigation: {
-	// 		nextEl: ".swiper-tabs-visibility-next",
-	// 		prevEl: ".swiper-tabs-visibility-prev",
-	// 	},
-	// 	loop: true,
-	// })
 })
 function initResponsiveSwiperTabs(containerEl) {
 	const triggers = containerEl.querySelectorAll(".tabs-header .tab-trigger")
@@ -420,3 +409,47 @@ document
 	.forEach((container) => {
 		initResponsiveSwiperTabs(container)
 	})
+
+const swiperToolsFirst = new Swiper(".swiper-tools-first", {
+	loop: true,
+	speed: 5000,
+	slidesPerView: "auto",
+	spaceBetween: 56,
+	freeMode: {
+		enabled: true,
+		momentum: false,
+		sticky: false,
+	},
+
+	autoplay: {
+		delay: 0,
+		reverseDirection: false,
+	},
+})
+const swiperToolsSecond = new Swiper(".swiper-tools-second", {
+	loop: true,
+	speed: 5000,
+	slidesPerView: "auto",
+	spaceBetween: 56,
+
+	autoplay: {
+		delay: 0,
+		reverseDirection: true,
+	},
+})
+const swiperToolsThird = new Swiper(".swiper-tools-third", {
+	loop: true,
+	speed: 5000,
+	slidesPerView: "auto",
+	spaceBetween: 56,
+	freeMode: {
+		enabled: true,
+		momentum: false,
+		sticky: false,
+	},
+
+	autoplay: {
+		delay: 0,
+		reverseDirection: false,
+	},
+})
