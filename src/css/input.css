@@ -154,6 +154,10 @@
 		@apply animate-fadeIn;
 	}
 
+	.footer-link {
+		@apply text-base text-black;
+	}
+
 	/* Marquee Chip */
 	.chip {
 		@apply bg-offwhite hover:bg-lightgray hover:after:bg-lightgray hover:before:bg-lightgray relative mx-auto max-w-fit px-1.5 py-2 transition-none md:gap-3.5 lg:gap-4;
@@ -242,7 +246,7 @@
 
 	/* After underline hover animation */
 	.with-underline-animation {
-		@apply after:bg-primary relative cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:scale-0 after:transition-transform hover:after:scale-100;
+		@apply relative cursor-pointer after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-full after:scale-0 after:bg-black after:transition-transform hover:after:scale-100;
 	}
 
 	/* List Item */
