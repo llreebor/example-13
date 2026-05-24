@@ -79,7 +79,7 @@
 @layer components {
 	/* Button */
 	.btn {
-		@apply inline-flex items-center gap-2 rounded-full border-[1.5px] border-transparent text-center transition-colors disabled:cursor-not-allowed disabled:opacity-85;
+		@apply inline-flex items-center justify-center gap-2 rounded-full border-[1.5px] border-transparent text-center transition-colors disabled:cursor-not-allowed disabled:opacity-85;
 	}
 	.btn-sm {
 		@apply px-4 py-2.25 lg:py-2.75;
@@ -198,13 +198,6 @@
 		pointer-events: none;
 	}
 }
-.swiper-logos .swiper-wrapper {
-	transition-timing-function: linear !important;
-}
-.swiper-slide-tools {
-	width: auto !important;
-	white-space: nowrap;
-}
 
 /* Base Elements  */
 @layer base {
@@ -254,15 +247,21 @@
 		@apply after:bg-primary relative pl-3 after:absolute after:top-1/2 after:left-0 after:size-1 after:-translate-y-1/2 after:rounded-full;
 	}
 }
+
+/* Swiper */
+.swiper-logos .swiper-wrapper {
+	transition-timing-function: linear !important;
+}
+.swiper-slide-tools {
+	width: auto !important;
+	white-space: nowrap;
+}
 @media (min-width: 1024px) {
-	/* Отменяем поведение swiper-wrapper, превращая в обычную панель табов */
 	.tabs-header.swiper-wrapper {
 		display: flex !important;
 		transform: none !important;
 		width: 100% !important;
 	}
-
-	/* Отменяем сжатие или фиксированную ширину кнопок, заданную Swiper */
 	.tab-trigger.swiper-slide {
 		width: auto !important;
 		flex-shrink: 1 !important;

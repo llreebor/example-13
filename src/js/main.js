@@ -171,140 +171,7 @@ function initializeAccordion() {
 		}
 	})
 }
-
-// Initializes tab navigation with accessibility features for a given tab container.
-// function initTabs(tabsEl) {
-// 	const triggers = tabsEl.querySelectorAll(".tabs-header .tab-trigger")
-// 	const panels = tabsEl.querySelectorAll(".tabs-content .tab-content")
-
-// 	function setActive(index) {
-// 		triggers.forEach((t, i) => {
-// 			const active = i === index
-// 			t.setAttribute("aria-selected", active)
-// 			t.setAttribute("tabindex", active ? "0" : "-1")
-// 			t.classList.toggle("active", active)
-// 		})
-// 		panels.forEach((p, i) => {
-// 			const active = i === index
-// 			p.classList.toggle("hidden", !active)
-// 			p.setAttribute("aria-hidden", !active)
-// 		})
-// 	}
-
-// 	triggers.forEach((trigger, index) => {
-// 		trigger.addEventListener("click", () => setActive(index))
-// 		trigger.addEventListener("keydown", (e) => {
-// 			if (e.key === "Enter" || e.key === " ") {
-// 				e.preventDefault()
-// 				setActive(index)
-// 			} else if (e.key === "ArrowRight") {
-// 				e.preventDefault()
-// 				const n = (index + 1) % triggers.length
-// 				setActive(n)
-// 				triggers[n].focus()
-// 			} else if (e.key === "ArrowLeft") {
-// 				e.preventDefault()
-// 				const p = (index - 1 + triggers.length) % triggers.length
-// 				setActive(p)
-// 				triggers[p].focus()
-// 			}
-// 		})
-// 	})
-
-// 	setActive(0)
-// }
-
-// Inits
-document.addEventListener("DOMContentLoaded", () => {
-	// Mobile Menu
-	initializeMobileMenu()
-
-	// FAQ Accordion
-	initializeAccordion()
-
-	// Initialize tabs
-	// document.querySelectorAll(".tabs").forEach(initTabs)
-
-	// Trusted By Slider
-	const trustedBySwiper = new Swiper(".swiper-trusted-by", {
-		// Optional parameters
-		loop: true,
-		speed: 3000,
-		spaceBetween: 40,
-		autoplay: {
-			delay: 0,
-		},
-		breakpoints: {
-			320: {
-				slidesPerView: 3,
-			},
-			768: {
-				slidesPerView: 4,
-			},
-			1024: {
-				slidesPerView: 5,
-			},
-			1280: {
-				slidesPerView: 6,
-			},
-		},
-	})
-
-	// Teams
-	const teamsSwiper = new Swiper(".swiper-teams", {
-		// Optional parameters
-		loop: true,
-		spaceBetween: 24,
-
-		breakpoints: {
-			320: {
-				slidesPerView: 1.1,
-			},
-
-			640: {
-				slidesPerView: 1.9,
-			},
-			992: {
-				slidesPerView: 2,
-			},
-			1280: {
-				slidesPerView: 3,
-			},
-		},
-	})
-
-	// Swiper Team
-	const swiperTeam = new Swiper(".swiper-team", {
-		centeredSlides: false,
-		loop: true,
-
-		navigation: {
-			nextEl: ".swiper-team-next",
-			prevEl: ".swiper-team-prev",
-		},
-
-		breakpoints: {
-			320: {
-				slidesPerView: 1,
-				spaceBetween: 16,
-				slidesOffsetBefore: 36,
-				slidesOffsetAfter: 36,
-			},
-			769: {
-				slidesPerView: 2,
-				spaceBetween: 20,
-				slidesOffsetBefore: 64,
-				slidesOffsetAfter: 64,
-			},
-			1280: {
-				slidesPerView: 2,
-				spaceBetween: 24,
-				slidesOffsetBefore: 85,
-				slidesOffsetAfter: 85,
-			},
-		},
-	})
-})
+// Initialize tabs & slider functionality
 function initResponsiveSwiperTabs(containerEl) {
 	const triggers = containerEl.querySelectorAll(".tabs-header .tab-trigger")
 	const panels = containerEl.querySelectorAll(".tabs-content .tab-content")
@@ -403,52 +270,143 @@ function initResponsiveSwiperTabs(containerEl) {
 	updateUI(currentIndex)
 }
 
-document
-	.querySelectorAll(".tabs.swiper-tabs-visibility")
-	.forEach((container) => {
-		initResponsiveSwiperTabs(container)
+// Inits
+document.addEventListener("DOMContentLoaded", () => {
+	// Mobile Menu
+	initializeMobileMenu()
+
+	// FAQ Accordion
+	initializeAccordion()
+
+	// Tabs & Slider
+	document
+		.querySelectorAll(".tabs.swiper-tabs-visibility")
+		.forEach((container) => {
+			initResponsiveSwiperTabs(container)
+		})
+
+	// Trusted By Slider
+	const trustedBySwiper = new Swiper(".swiper-trusted-by", {
+		// Optional parameters
+		loop: true,
+		speed: 3000,
+		spaceBetween: 40,
+		autoplay: {
+			delay: 0,
+		},
+		breakpoints: {
+			320: {
+				slidesPerView: 3,
+			},
+			768: {
+				slidesPerView: 4,
+			},
+			1024: {
+				slidesPerView: 5,
+			},
+			1280: {
+				slidesPerView: 6,
+			},
+		},
 	})
 
-const swiperToolsFirst = new Swiper(".swiper-tools-first", {
-	loop: true,
-	speed: 5000,
-	slidesPerView: "auto",
-	spaceBetween: 56,
-	freeMode: {
-		enabled: true,
-		momentum: false,
-		sticky: false,
-	},
+	// Teams
+	const teamsSwiper = new Swiper(".swiper-teams", {
+		// Optional parameters
+		loop: true,
+		spaceBetween: 24,
 
-	autoplay: {
-		delay: 0,
-		reverseDirection: false,
-	},
-})
-const swiperToolsSecond = new Swiper(".swiper-tools-second", {
-	loop: true,
-	speed: 5000,
-	slidesPerView: "auto",
-	spaceBetween: 56,
+		breakpoints: {
+			320: {
+				slidesPerView: 1.1,
+			},
 
-	autoplay: {
-		delay: 0,
-		reverseDirection: true,
-	},
-})
-const swiperToolsThird = new Swiper(".swiper-tools-third", {
-	loop: true,
-	speed: 5000,
-	slidesPerView: "auto",
-	spaceBetween: 56,
-	freeMode: {
-		enabled: true,
-		momentum: false,
-		sticky: false,
-	},
+			640: {
+				slidesPerView: 1.9,
+			},
+			992: {
+				slidesPerView: 2,
+			},
+			1280: {
+				slidesPerView: 3,
+			},
+		},
+	})
 
-	autoplay: {
-		delay: 0,
-		reverseDirection: false,
-	},
+	// Swiper Team
+	const swiperTeam = new Swiper(".swiper-team", {
+		centeredSlides: false,
+		loop: true,
+
+		navigation: {
+			nextEl: ".swiper-team-next",
+			prevEl: ".swiper-team-prev",
+		},
+
+		breakpoints: {
+			320: {
+				slidesPerView: 1,
+				spaceBetween: 16,
+				slidesOffsetBefore: 36,
+				slidesOffsetAfter: 36,
+			},
+			769: {
+				slidesPerView: 2,
+				spaceBetween: 20,
+				slidesOffsetBefore: 64,
+				slidesOffsetAfter: 64,
+			},
+			1280: {
+				slidesPerView: 2,
+				spaceBetween: 24,
+				slidesOffsetBefore: 85,
+				slidesOffsetAfter: 85,
+			},
+		},
+	})
+
+	// Swiper Tools
+	const swiperToolsFirst = new Swiper(".swiper-tools-first", {
+		loop: true,
+		speed: 5000,
+		slidesPerView: "auto",
+		spaceBetween: 56,
+		freeMode: {
+			enabled: true,
+			momentum: false,
+			sticky: false,
+		},
+
+		autoplay: {
+			delay: 0,
+			reverseDirection: false,
+		},
+	})
+	const swiperToolsSecond = new Swiper(".swiper-tools-second", {
+		loop: true,
+		speed: 5000,
+		slidesPerView: "auto",
+		spaceBetween: 56,
+
+		autoplay: {
+			delay: 0,
+			reverseDirection: true,
+		},
+	})
+	const swiperToolsThird = new Swiper(".swiper-tools-third", {
+		loop: true,
+		speed: 5000,
+		slidesPerView: "auto",
+		spaceBetween: 56,
+		freeMode: {
+			enabled: true,
+			momentum: false,
+			sticky: false,
+		},
+
+		autoplay: {
+			delay: 0,
+			reverseDirection: false,
+		},
+	})
 })
